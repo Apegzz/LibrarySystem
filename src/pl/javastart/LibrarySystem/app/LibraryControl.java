@@ -7,20 +7,16 @@ import pl.javastart.LibrarySystem.model.Magazine;
 
 public class LibraryControl {
 
-    private final int ADD_BOOK = 1;
-    private final int ADD_MAGAZINE = 2;
-    private final int PRINT_BOOKS = 3;
-    private final int PRINT_MAGAZINES = 4;
-    private final int EXIT = 0;
+
     private DataReader dataReader = new DataReader();
     private Library library = new Library();
 
     public void controlLoop() {
-        int userOption;
+        Option userOption;
 
         do {
             printOptions();
-            userOption = dataReader.getInt();
+            userOption = Option.createFromInt(dataReader.getInt());
             switch (userOption) {
                 case ADD_BOOK:
                     addBook();
@@ -40,7 +36,7 @@ public class LibraryControl {
                 default:
                     System.out.println("Brak opcji, wprowadź ponownie");
             }
-        } while (userOption != EXIT);
+        } while (userOption != Option.EXIT);
     }
 
     private void printMagazines() {
@@ -69,10 +65,8 @@ public class LibraryControl {
 
     private void printOptions() {
         System.out.println("Wybierz opcję:");
-        System.out.println(ADD_BOOK + " - dodanie nowej książki");
-        System.out.println(ADD_MAGAZINE + " - dodanie nowego magazynu");
-        System.out.println(PRINT_BOOKS + " - wyświetl dostępne książki");
-        System.out.println(PRINT_MAGAZINES + " - wyświetl dostępne magazyny");
-        System.out.println(EXIT + " - wyjście z programu");
+        for (Option value : Option.values()) {
+            System.out.println(value);
+        }
     }
 }
